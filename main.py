@@ -6,9 +6,8 @@ import requests
 API_URL = "https://www.chance.cz/api/rest/offer?limit=75"
 THRESHOLD = 17
 CHECK_INTERVAL = 15  # vteřin
-NOTIFIED_FILE = "notified_matches.json"
+NOTIFIED_FILE = "/tmp/notified_matches.json"  # bezpečné místo pro zápis na Renderu
 
-# Načti tokeny z prostředí
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
