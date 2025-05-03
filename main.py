@@ -8,7 +8,7 @@ THRESHOLD = 17
 CHECK_INTERVAL = 15  # vteřin
 NOTIFIED_FILE = "notified_matches.json"
 
-# Získání proměnných z prostředí (bezpečně)
+# Načti tokeny z prostředí
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
@@ -30,17 +30,21 @@ def send_telegram_message(text):
         "text": text
     }
     try:
-        requests.post(url, json=payload)
+        response = requests.post(url, json=payload)
+        print(f"📤 Telegram zpráva odeslána: {response.status_code}")
     except Exception as e:
-        print(f"Chyba při posílání zprávy na Telegram: {e}")
+        print(f"❌ Chyba při posílání zprávy na Telegram: {e}")
 
 def check_chance():
     notified_ids = load_notified_ids()
     try:
         response = requests.get(API_URL)
+        print(f"🌐 Stav odpovědi API: {response.status_code}")
         data = response.json()
+        print(f"📦 Načteno {len(data.get('offerSuperSports', []))} sportů z nabídky")
     except Exception as e:
-        print(f"Chyba při načítání dat z Chance.cz: {e}")
+        print("‼️ Chyba při načítání dat z Chance.cz:")
+        print(e)
         return
 
     new_notifications = []
