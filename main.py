@@ -79,6 +79,13 @@ def check_chance():
 
 if __name__ == "__main__":
     print("✅ Sledování Chance.cz spuštěno...")
+    print(f"🔑 TELEGRAM_TOKEN začíná na: {TELEGRAM_TOKEN[:5] if TELEGRAM_TOKEN else 'NIC'}")
+    print(f"📨 TELEGRAM_CHAT_ID: {TELEGRAM_CHAT_ID}")
+
+    if not TELEGRAM_TOKEN or not TELEGRAM_CHAT_ID:
+        print("❌ Chyba: TELEGRAM_TOKEN nebo CHAT_ID nejsou nastavené!")
+        exit(1)
+
     while True:
         check_chance()
         time.sleep(CHECK_INTERVAL)
