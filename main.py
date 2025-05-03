@@ -36,9 +36,14 @@ def send_telegram_message(text):
         print(f"❌ Chyba při posílání zprávy na Telegram: {e}")
 
 def check_chance():
+    print("🔁 Spouštím kontrolu API...")
     notified_ids = load_notified_ids()
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    }
+
     try:
-        response = requests.get(API_URL)
+        response = requests.get(API_URL, headers=headers)
         print(f"🌐 Stav odpovědi API: {response.status_code}")
         data = response.json()
         print(f"📦 Načteno {len(data.get('offerSuperSports', []))} sportů z nabídky")
